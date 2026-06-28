@@ -1,0 +1,325 @@
+.cred-page {
+  min-height: 100vh;
+  background: #f5f5f5;
+}
+
+.cred-main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px 20px;
+}
+
+/* HERO */
+.cred-hero {
+  background: linear-gradient(135deg, #a80c15, #c70f1b);
+  color: white;
+  border-radius: 10px;
+  padding: 24px 28px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 4px 12px rgba(199,15,27,0.3);
+}
+
+.cred-hero h2 {
+  font-size: 24px;
+  font-weight: 800;
+  margin-bottom: 6px;
+}
+
+.cred-hero p {
+  font-size: 14px;
+  opacity: 0.85;
+}
+
+.cred-hero-badge {
+  background: rgba(255,255,255,0.2);
+  border: 1px solid rgba(255,255,255,0.4);
+  border-radius: 8px;
+  padding: 14px 20px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.cred-hero-badge span {
+  display: block;
+  font-size: 11px;
+  opacity: 0.85;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.cred-hero-badge strong {
+  font-size: 18px;
+  font-family: 'Montserrat', sans-serif;
+}
+
+/* FILTROS */
+.cred-filtros {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.cred-filtro-btn {
+  padding: 8px 20px;
+  border: 2px solid #ddd;
+  border-radius: 20px;
+  background: white;
+  color: #333;
+  font-size: 13px;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+
+.cred-filtro-btn:hover {
+  border-color: #c70f1b;
+  color: #c70f1b;
+}
+
+.cred-filtro-btn.active {
+  background: #c70f1b;
+  border-color: #c70f1b;
+  color: white;
+}
+
+/* GRID */
+.cred-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.cred-card {
+  background: white;
+  border-radius: 8px;
+  padding: 20px;
+  border: 2px solid #eee;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: all 0.2s;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+.cred-card:hover {
+  border-color: #c70f1b;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+
+.cred-icon {
+  font-size: 32px;
+}
+
+.cred-card h4 {
+  font-size: 14px;
+  font-weight: 700;
+  color: #c70f1b;
+  line-height: 1.3;
+}
+
+.cred-info {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+}
+
+.cred-info-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+}
+
+.cred-info-row span:first-child {
+  color: #999;
+}
+
+.cred-info-row span:last-child {
+  font-weight: 700;
+  color: #333;
+}
+
+.cred-tasa {
+  color: #c70f1b !important;
+}
+
+.cred-btn {
+  background: #c70f1b;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  transition: background 0.2s;
+}
+
+.cred-btn:hover {
+  background: #a80c15;
+}
+
+/* CONFIRMACIÓN */
+.cred-ok {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: #f0fff4;
+  border: 1px solid #b2dfdb;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 24px;
+}
+
+.cred-ok span:first-child {
+  font-size: 24px;
+}
+
+.cred-ok strong {
+  display: block;
+  color: #28a745;
+  margin-bottom: 4px;
+}
+
+.cred-ok p {
+  font-size: 13px;
+}
+
+.cred-ok code {
+  background: #e8f5e9;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-weight: 700;
+  color: #28a745;
+}
+
+.cred-ok button {
+  margin-left: auto;
+  background: none;
+  border: none;
+  font-size: 18px;
+  color: #999;
+}
+
+/* SIMULADOR */
+.cred-simulador {
+  margin-bottom: 24px;
+}
+
+.dash-section-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 14px;
+  padding-left: 10px;
+  border-left: 4px solid #c70f1b;
+}
+
+.cred-sim-card {
+  background: white;
+  border-radius: 10px;
+  padding: 28px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 32px;
+  align-items: start;
+}
+
+.cred-sim-inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.cred-sim-group label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+.cred-sim-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.cred-sim-row input[type=range] {
+  flex: 1;
+  accent-color: #c70f1b;
+}
+
+.cred-sim-row span {
+  min-width: 120px;
+  font-size: 15px;
+  font-weight: 700;
+  color: #c70f1b;
+  font-family: 'Montserrat', sans-serif;
+  text-align: right;
+}
+
+.cred-sim-results {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 200px;
+}
+
+.cred-result-box {
+  background: white;
+  border: 2px solid #eee;
+  border-radius: 8px;
+  padding: 16px 20px;
+  text-align: center;
+}
+
+.cred-result-box.primary {
+  background: #c70f1b;
+  border-color: #c70f1b;
+  color: white;
+}
+
+.cred-result-box span {
+  display: block;
+  font-size: 11px;
+  opacity: 0.7;
+  margin-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.cred-result-box strong {
+  font-size: 22px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 800;
+}
+
+.cred-result-box.primary span {
+  color: rgba(255,255,255,0.8);
+  opacity: 1;
+}
+
+@media (max-width: 1024px) {
+  .cred-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .cred-grid {
+    grid-template-columns: 1fr;
+  }
+  .cred-sim-card {
+    grid-template-columns: 1fr;
+  }
+  .cred-hero {
+    flex-direction: column;
+    gap: 12px;
+  }
+}

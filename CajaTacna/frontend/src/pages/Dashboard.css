@@ -1,0 +1,407 @@
+.dash-page {
+  min-height: 100vh;
+  background: #f5f5f5;
+}
+
+/* NAVBAR */
+.dash-nav {
+  background: #c70f1b;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.dash-nav-top {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 12px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.dash-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.dash-logo-icon {
+  font-size: 32px;
+}
+
+.dash-logo-main {
+  display: block;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 800;
+  font-size: 18px;
+  color: white;
+  letter-spacing: 1.5px;
+}
+
+.dash-logo-sub {
+  display: block;
+  font-size: 11px;
+  color: rgba(255,255,255,0.7);
+}
+
+.dash-nav-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.dash-user {
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.dash-logout {
+  background: rgba(255,255,255,0.15);
+  color: white;
+  border: 1px solid rgba(255,255,255,0.4);
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-size: 13px;
+  font-weight: 600;
+  transition: background 0.2s;
+}
+
+.dash-logout:hover {
+  background: rgba(0,0,0,0.2);
+}
+
+.dash-nav-menu {
+  background: #a80c15;
+  max-width: 100%;
+  padding: 0 20px;
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+}
+
+.dash-nav-menu a {
+  color: white;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 10px 16px;
+  display: block;
+  transition: background 0.2s;
+}
+
+.dash-nav-menu a:hover {
+  background: rgba(0,0,0,0.2);
+}
+
+/* MAIN */
+.dash-main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px 20px;
+}
+
+/* BIENVENIDA */
+.dash-welcome {
+  background: linear-gradient(135deg, #c70f1b, #e63333);
+  color: white;
+  border-radius: 10px;
+  padding: 24px 28px;
+  margin-bottom: 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 4px 12px rgba(199,15,27,0.3);
+}
+
+.dash-welcome h2 {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.dash-welcome p {
+  font-size: 14px;
+  opacity: 0.9;
+}
+
+.dash-fecha {
+  font-size: 12px;
+  opacity: 0.8;
+  text-transform: capitalize;
+  text-align: right;
+}
+
+/* SECCIONES */
+.dash-section {
+  margin-bottom: 24px;
+}
+
+.dash-section-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 14px;
+  padding-left: 10px;
+  border-left: 4px solid #c70f1b;
+}
+
+/* ACCESOS */
+.dash-accesos {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 12px;
+}
+
+.dash-acceso-btn {
+  background: white;
+  border: 2px solid #e5e5e5;
+  border-radius: 8px;
+  padding: 16px 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #333;
+  transition: all 0.2s;
+}
+
+.dash-acceso-btn:hover {
+  border-color: #c70f1b;
+  color: #c70f1b;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.acceso-icon {
+  font-size: 26px;
+}
+
+/* GRID */
+.dash-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+/* CUENTAS */
+.dash-cuentas {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.dash-cuenta {
+  background: white;
+  border-radius: 8px;
+  padding: 16px 20px;
+  border-left: 5px solid #c70f1b;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  transition: transform 0.2s;
+}
+
+.dash-cuenta:hover {
+  transform: translateY(-2px);
+}
+
+.dash-cuenta-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.dash-cuenta-tipo {
+  font-size: 13px;
+  font-weight: 700;
+  color: #c70f1b;
+}
+
+.dash-cuenta-num {
+  font-size: 12px;
+  color: #999;
+  font-family: monospace;
+}
+
+.dash-cuenta-saldo {
+  font-size: 24px;
+  font-weight: 800;
+  color: #222;
+  font-family: 'Montserrat', sans-serif;
+  margin-bottom: 12px;
+}
+
+.dash-cuenta-btns {
+  display: flex;
+  gap: 8px;
+}
+
+.dash-cuenta-btns button {
+  font-size: 12px;
+  padding: 5px 12px;
+  border: 1px solid #ddd;
+  border-radius: 20px;
+  background: white;
+  color: #c70f1b;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+
+.dash-cuenta-btns button:hover {
+  background: #c70f1b;
+  color: white;
+  border-color: #c70f1b;
+}
+
+/* MOVIMIENTOS */
+.dash-movis {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  overflow: hidden;
+}
+
+.dash-movi {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  border-bottom: 1px solid #f0f0f0;
+  transition: background 0.15s;
+}
+
+.dash-movi:last-child {
+  border-bottom: none;
+}
+
+.dash-movi:hover {
+  background: #fafafa;
+}
+
+.dash-movi-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.dash-movi-dot.ingreso { background: #28a745; }
+.dash-movi-dot.egreso  { background: #c70f1b; }
+
+.dash-movi-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.dash-movi-info span {
+  font-size: 13px;
+  font-weight: 600;
+  color: #333;
+}
+
+.dash-movi-info small {
+  font-size: 11px;
+  color: #999;
+}
+
+.dash-movi-monto {
+  font-size: 14px;
+  font-weight: 700;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.dash-movi-monto.ingreso { color: #28a745; }
+.dash-movi-monto.egreso  { color: #c70f1b; }
+
+/* PRODUCTOS */
+.dash-productos {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.dash-producto {
+  border-radius: 10px;
+  padding: 22px 18px;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transition: transform 0.2s;
+}
+
+.dash-producto:hover {
+  transform: translateY(-3px);
+}
+
+.dash-producto.rojo   { background: linear-gradient(135deg, #a80c15, #c70f1b); }
+.dash-producto.oscuro { background: linear-gradient(135deg, #333, #555); }
+.dash-producto.gris   { background: linear-gradient(135deg, #555, #777); }
+
+.dash-producto span {
+  font-size: 28px;
+}
+
+.dash-producto h4 {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.dash-producto p {
+  font-size: 13px;
+  opacity: 0.85;
+  flex: 1;
+}
+
+.dash-producto button {
+  background: rgba(255,255,255,0.2);
+  border: 1px solid rgba(255,255,255,0.4);
+  color: white;
+  padding: 8px 14px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+  align-self: flex-start;
+  transition: background 0.2s;
+}
+
+.dash-producto button:hover {
+  background: rgba(255,255,255,0.35);
+}
+
+/* FOOTER */
+.dash-footer {
+  background: #2c2c2c;
+  color: rgba(255,255,255,0.6);
+  text-align: center;
+  padding: 16px;
+  font-size: 12px;
+  margin-top: 20px;
+}
+
+@media (max-width: 768px) {
+  .dash-grid {
+    grid-template-columns: 1fr;
+  }
+  .dash-productos {
+    grid-template-columns: 1fr;
+  }
+  .dash-accesos {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .dash-welcome {
+    flex-direction: column;
+    gap: 8px;
+    text-align: center;
+  }
+  .dash-nav-menu {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
