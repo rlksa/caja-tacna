@@ -6,7 +6,8 @@ Simula el inicio de sesión y el registro de la proforma/solicitud.
 import requests
 import time
 
-BASE_URL = "http://127.0.0.1:8000"
+# 🌍 CONFIGURACIÓN: Apuntando al servidor real en Render
+BASE_URL = "https://homebanking-backend-q6fe.onrender.com"
 
 # Estructura de datos limpia con los casos extraídos del enunciado del docente
 CASOS_REALES = [
@@ -43,33 +44,31 @@ CASOS_REALES = [
 ]
 
 print("=" * 70)
-print("🤖 CAJA TACNA - PROCESADOR AUTOMÁTICO DE LOS 30 CASOS DEL DOCENTE")
+print("🤖 CAJA TACNA - PROCESADOR AUTOMÁTICO DE LOS 30 CASOS EN PRODUCCIÓN")
 print("=" * 70)
 
 for caso in CASOS_REALES:
-    # Vinculamos secuencialmente con las tarjetas de los 30 usuarios creados en tu base de datos
     idx = caso["id"]
     username = f"cli{str(idx).zfill(6)}"
     
     print(f"\n🚀 [CASO {idx}] Cliente: {caso['cliente']} ({username})")
     
-    # 1. Simulación de autenticación (Login)
+    # 🔑 CORREGIDO: Formato x-www-form-urlencoded requerido por FastAPI OAuth2
     payload_login = {
         "username": username,
-        "password": "demo1234",
-        "dni": "None"
+        "password": "demo1234"
     }
     
     try:
-        res_login = requests.post(f"{BASE_URL}/auth/login", json=payload_login)
+        # Usamos data= para enviar como Form Data en vez de json=
+        res_login = requests.post(f"{BASE_URL}/auth/login", data=payload_login)
         
         if res_login.status_code == 200:
             token = res_login.json()["access_token"]
             headers = {"Authorization": f"Bearer {token}"}
             print("  🔑 Autenticación: Exitosa (JWT Generado)")
             
-            # 2. Invocación de la proforma digital usando la ruta que creamos
-            # Calculamos con la TEM exacta correspondiente
+            # 2. Invocación de la proforma digital usando la ruta remota
             monto = caso["monto"]
             plazo = caso["plazo"]
             
@@ -81,17 +80,19 @@ for caso in CASOS_REALES:
                 print(f"  📊 Simulación: S/. {monto} | {plazo} meses | TEA {caso['tea']}%")
                 print(f"  💵 Cuota Estimada del Sistema: S/. {data_p['cuota_estimada']}")
             else:
-                print("  ❌ Simulación: Error al calcular la proforma.")
+                print(f"  ❌ Simulación: Error al calcular la proforma (Status: {res_proforma.status_code}).")
                 
         else:
             print(f"  ❌ Autenticación: Falló con código {res_login.status_code}")
+            print(f"     Detalle: {res_login.text}")
             
     except requests.exceptions.ConnectionError:
-        print("🚨 CRÍTICO: El servidor backend (Uvicorn) está apagado. Enciéndelo en el puerto 8000.")
+        print("🚨 CRÍTICO: No se pudo conectar con el servidor en Render. Revisa tu conexión a internet o el estado del servicio.")
         break
         
-    time.sleep(0.05)
+    # Un pequeño delay de 200ms para no saturar la API gratuita de Render
+    time.sleep(0.2)
 
 print("\n" + "=" * 70)
-print("🏁 PROCESO COMPLETADO: Los 30 casos están impactados e ingresados.")
+print("🏁 PROCESO COMPLETADO: Los 30 casos han sido procesados en la nube.")
 print("=" * 70)
