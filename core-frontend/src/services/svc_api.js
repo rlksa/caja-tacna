@@ -1,33 +1,34 @@
 import axios from 'axios'
 
-/**
- * Instancia axios central. Todas las llamadas al backend FastAPI
- * pasan por aquí. Inyecta el JWT desde localStorage en cada request.
- */
 const api = axios.create({
-  baseURL: 'https://homebanking-backend-q6fe.onrender.com',
+  baseURL: 'https://core-backend-qu9z.onrender.com',
   headers: { 'Content-Type': 'application/json' },
 })
 
 export const TOKEN_KEY = 'core_token'
 
-// Request interceptor → agrega Authorization: Bearer <token>
+// Request interceptor → agrega Authorization y fix Content-Type para login
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem(TOKEN_KEY)
   if (token) {
     config.headers.Authorization = `Bearer ${token}`
   }
+
+  // ✅ FIX: si el body es URLSearchParams (login), usa form-urlencoded
+  if (config.data instanceof URLSearchParams) {
+    config.headers['Content-Type'] = 'application/x-www-form-urlencoded'
+  }
+
   return config
 })
 
-// Response interceptor → ante 401, limpia sesión y redirige a /login
+// Response interceptor → ante 401, limpia sesión y redirige
 api.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response?.status === 401) {
       localStorage.removeItem(TOKEN_KEY)
       localStorage.removeItem('core_user')
-      // Sesión inválida/expirada → regresa a la página de inicio.
       if (window.location.pathname !== '/' && window.location.pathname !== '/login') {
         window.location.href = '/'
       }
