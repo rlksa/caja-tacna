@@ -9,11 +9,17 @@ app = FastAPI(
     version="1.0.0"
 )
 
-# 🛡️ MITIGACIÓN CONFIGURACIÓN INSEGURA: Liberar política CORS para entorno local
+# 🛡️ MITIGACIÓN CONFIGURACIÓN INSEGURA: URLs permitidas para producción y entorno local
+origins = [
+    "https://caja-tacna-bmpl-elm3tc9c5-daaam.vercel.app",  # Tu frontend en Vercel
+    "http://localhost:5173",                               # React / Vite local por defecto
+    "http://localhost:5175",                               # Tu puerto local alternativo
+]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Abre la comunicación directo con http://localhost:5175
-    allow_credentials=True,
+    allow_origins=origins,       # <-- Usamos la lista de servidores autorizados
+    allow_credentials=True,      # <-- Ahora sí funcionará con seguridad
     allow_methods=["*"],
     allow_headers=["*"],
 )
