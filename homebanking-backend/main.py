@@ -10,10 +10,12 @@ app = FastAPI(
 )
 
 # 🛡️ MITIGACIÓN CONFIGURACIÓN INSEGURA: URLs permitidas para producción y entorno local
+# Modifica la lista agregando la nueva URL que sale en tu captura:
 origins = [
-    "https://caja-tacna-bmpl-elm3tc9c5-daaam.vercel.app",  # Tu frontend en Vercel
-    "http://localhost:5173",                               # React / Vite local por defecto
-    "http://localhost:5175",                               # Tu puerto local alternativo
+    "https://caja-tacna-bmpl-elm3tc9c5-daaam.vercel.app",  # URL anterior
+    "https://caja-tacna-bmpl-9xtkjhz40-daaam.vercel.app",  # <-- AGREGA ESTA (La de tu captura actual)
+    "http://localhost:5173",
+    "http://localhost:5175",
 ]
 
 app.add_middleware(
