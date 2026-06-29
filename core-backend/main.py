@@ -27,12 +27,16 @@ origins = [
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,         # Usamos la lista de servidores permitidos
-    allow_credentials=True,        # Permitimos las credenciales de sesión
+    allow_origins=["*"],           # ⚡ Al poner "*" permites que CUALQUIER URL de Vercel se conecte sin trabas
+    allow_credentials=False,       # Al usar "*" para evitar fallos de CORS, credentials debe ser False
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
+# Modelo de datos idéntico al que envía tu frontend
+class LoginRequest(BaseModel):
+    username: str  # o dni, pon el campo que mande tu formulario
+    password: str
+    
 app.include_router(rtr_auth.router,      prefix="/auth",      tags=["Auth"])
 app.include_router(rtr_scoring.router,   prefix="/scoring",   tags=["Scoring"])
 app.include_router(rtr_creditos.router,  prefix="/creditos",  tags=["Créditos"])
