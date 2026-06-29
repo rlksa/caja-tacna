@@ -1,13 +1,22 @@
-import hbApi, { TOKEN_KEY, USER_KEY } from './hb_api.js'
-
 /**
  * Login del CLIENTE (Banca por Internet de Banco Andino, no del personal).
- * Backend: POST /auth/login {username, password}
- *   -> { access_token, token_type, expires_in_min, cliente: { codcliente, nombre, pkcliente } }
+ * Backend: POST /auth/login (Formato x-www-form-urlencoded requerido)
+ * -> { access_token, token_type, expires_in_min, cliente: { codcliente, nombre, pkcliente } }
  * Devuelve { token, user } ya normalizado.
  */
 export async function login(username, password) {
-  const { data } = await hbApi.post('/auth/login', { username, password })
+  // 📝 Convertimos los parámetros a formato Form Data para ganarle al 422
+  const params = new URLSearchParams()
+  params.append('username', username)
+  params.append('password', password)
+
+  // Enviamos la petición con la cabecera correcta
+  const { data } = await hbApi.post('/auth/login', params, {
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    }
+  })
+
   const token = data.access_token
   const cliente = data.cliente || {}
   const user = {
@@ -16,27 +25,4 @@ export async function login(username, password) {
     pkcliente: cliente.pkcliente,
   }
   return { token, user }
-}
-
-export function saveSession(token, user) {
-  localStorage.setItem(TOKEN_KEY, token)
-  localStorage.setItem(USER_KEY, JSON.stringify(user))
-}
-
-export function clearSession() {
-  localStorage.removeItem(TOKEN_KEY)
-  localStorage.removeItem(USER_KEY)
-}
-
-export function getStoredToken() {
-  return localStorage.getItem(TOKEN_KEY)
-}
-
-export function getStoredUser() {
-  try {
-    const raw = localStorage.getItem(USER_KEY)
-    return raw ? JSON.parse(raw) : null
-  } catch {
-    return null
-  }
 }
