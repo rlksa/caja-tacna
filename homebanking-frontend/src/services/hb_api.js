@@ -3,8 +3,7 @@ import axios from 'axios'
 export const TOKEN_KEY = 'hb_token'
 export const USER_KEY = 'hb_user'
 
-const baseURL = import.meta.env.VITE_BASE_URL || 'http://localhost:8000'
-
+const baseURL = import.meta.env.VITE_BASE_URL || import.meta.env.VITE_BACKEND_URL || 'https://homebanking-backend-q6fe.onrender.com'
 // Instancia central de axios para todo el Homebanking.
 const hbApi = axios.create({
   baseURL,
