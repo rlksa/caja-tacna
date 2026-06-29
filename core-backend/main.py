@@ -6,14 +6,19 @@ from app.routes import (
 )
 
 app = FastAPI(
-    title="Core Financiero — Banco Andino",
+    title="Core Financiero — Caja Tacna",
     description="Motor de scoring, cartera crediticia y KPIs institucionales",
     version="1.0.0"
 )
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"],  # React Vite frontend
+    allow_origins=[
+        "http://localhost:5173",
+        "https://caja-tacna-l4hv.vercel.app",
+        "https://caja-tacna-l4hv-mhya4zdtf-daaam.vercel.app",
+        "https://caja-tacna-l4hv-git-main-daaam.vercel.app",
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -30,7 +35,4 @@ app.include_router(rtr_recuperaciones.router, prefix="/recuperaciones", tags=["R
 
 @app.get("/")
 def root():
-    return {"sistema": "Core Financiero Banco Andino", "version": "1.0.0", "status": "ok"}
-
-
-
+    return {"sistema": "Core Financiero Caja Tacna", "version": "1.0.0", "status": "ok"}
