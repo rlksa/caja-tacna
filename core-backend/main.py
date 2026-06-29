@@ -1,21 +1,38 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+
+# ⚡ IMPORTANTE: Forzar creación de tablas automáticas en PostgreSQL
+from app.database import Base, engine
+Base.metadata.create_all(bind=engine)
+
 from app.routes import (
     rtr_scoring, rtr_creditos, rtr_ahorros,
     rtr_dashboard, rtr_clientes, rtr_auth, rtr_homebanking, rtr_recuperaciones,
 )
+
 app = FastAPI(
     title="Core Financiero — Caja Tacna",
     description="Motor de scoring, cartera crediticia y KPIs institucionales",
     version="1.0.0"
 )
+
+# 🛡️ Configuración de CORS segura para tu frontend en Vercel y desarrollo local
+origins = [
+    "https://caja-tacna-bmpl-elm3tc9c5-daaam.vercel.app",  # Tu URL de Vercel
+    "https://caja-tacna-bmpl-9xtkjhz40-daaam.vercel.app",  # Tu otra URL de Vercel de la captura
+    "http://localhost:3000",
+    "http://localhost:5173",
+    "http://localhost:5175",
+]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=False,
+    allow_origins=origins,         # Usamos la lista de servidores permitidos
+    allow_credentials=True,        # Permitimos las credenciales de sesión
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
 app.include_router(rtr_auth.router,      prefix="/auth",      tags=["Auth"])
 app.include_router(rtr_scoring.router,   prefix="/scoring",   tags=["Scoring"])
 app.include_router(rtr_creditos.router,  prefix="/creditos",  tags=["Créditos"])
