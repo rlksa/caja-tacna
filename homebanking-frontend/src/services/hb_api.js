@@ -4,20 +4,26 @@ export const TOKEN_KEY = 'hb_token'
 export const USER_KEY = 'hb_user'
 
 const baseURL = import.meta.env.VITE_BASE_URL || import.meta.env.VITE_BACKEND_URL || 'https://homebanking-backend-q6fe.onrender.com'
-// Instancia central de axios para todo el Homebanking.
+
 const hbApi = axios.create({
   baseURL,
   headers: { 'Content-Type': 'application/json' },
   timeout: 20000,
 })
 
-// --- Request: inyecta el Bearer token en cada petición ---
+// --- Request: inyecta el Bearer token y respeta Content-Type del login ---
 hbApi.interceptors.request.use((config) => {
   const token = localStorage.getItem(TOKEN_KEY)
   if (token) {
     config.headers = config.headers || {}
     config.headers.Authorization = `Bearer ${token}`
   }
+
+  // ✅ FIX: si el body es URLSearchParams (ej. login), usa form-urlencoded
+  if (config.data instanceof URLSearchParams) {
+    config.headers['Content-Type'] = 'application/x-www-form-urlencoded'
+  }
+
   return config
 })
 
@@ -30,8 +36,6 @@ hbApi.interceptors.response.use(
       const enLogin = window.location.pathname.startsWith('/login')
       localStorage.removeItem(TOKEN_KEY)
       localStorage.removeItem(USER_KEY)
-      // No redirigimos si el propio intento de login fue el que devolvió 401
-      // (para que LoginPage muestre el mensaje "Credenciales inválidas").
       if (!enLogin) {
         window.location.assign('/login')
       }
