@@ -6,4 +6,5 @@ def login(db, numerodni=None, password=None):
             self.username = username
             self.password = password
     body = Body(username=numerodni, password=password)
-    return ctrl_login(db, body)
+    conn = db.connection()
+    return ctrl_login(conn, body)
