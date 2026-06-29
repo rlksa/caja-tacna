@@ -1,9 +1,9 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-# ⚡ Apuntamos a la ruta exacta dentro de la carpeta core
-from app.core.database import Base, engine
-Base.metadata.create_all(bind=engine)
+# 🚫 COMENTADO TEMPORALMENTE PARA QUITAR EL ERROR DE IMPORTACIÓN EN RENDER:
+# from app.core.database import Base, engine
+# Base.metadata.create_all(bind=engine)
 
 from app.routes import (
     rtr_scoring, rtr_creditos, rtr_ahorros,
