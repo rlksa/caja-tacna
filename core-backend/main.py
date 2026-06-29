@@ -1,8 +1,8 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-# ⚡ IMPORTANTE: Forzar creación de tablas automáticas en PostgreSQL
-from app.database import Base, engine
+# ⚡ Apuntamos a la ruta exacta dentro de la carpeta core
+from app.core.database import Base, engine
 Base.metadata.create_all(bind=engine)
 
 from app.routes import (
