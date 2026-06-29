@@ -5,7 +5,7 @@ from pydantic import BaseModel, Field
 class LoginRequest(BaseModel):
     username: str = Field(..., examples=["cli000001"])
     password: str = Field(..., examples=["demo1234"])
-    dni: str | None = Field(None, examples=["11200001"])  # 🌟 AGREGA ESTA LÍNEA EXACTA
+    dni: str | None = Field(None, examples=["11200001"])
 
 
 class ClienteInfo(BaseModel):
@@ -15,6 +15,13 @@ class ClienteInfo(BaseModel):
 
 
 class LoginResponse(BaseModel):
+    access_token: str
+    token_type: str = "bearer"
+    expires_in_min: int
+    cliente: ClienteInfo
+
+
+class TokenOut(BaseModel):
     access_token: str
     token_type: str = "bearer"
     expires_in_min: int
