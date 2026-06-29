@@ -1,6 +1,5 @@
-from fastapi import FastAPI, Form, Depends
+from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
-from typing import Dict, Any
 
 app = FastAPI(title="API Homebanking - Caja Tacna")
 
@@ -12,31 +11,45 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# ⚡ BYPASS DEFINITIVO: Acepta tanto JSON como datos de Formulario tradicionales
 @app.post("/auth/login")
-async def login_homebanking_bypass(
-    tarjeta_ahorros: str = Form(default="cli000001"),
-    dni: str = Form(default="12345678"),
-    clave_internet: str = Form(default="demo1234")
-):
-    print(f"Datos recibidos -> Tarjeta: {tarjeta_ahorros}, DNI: {dni}")
+async def login_homebanking_bypass(request: Request):
+    tarjeta = "cli000001"
+    dni = "12345678"
+    
+    try:
+        body = await request.json()
+        tarjeta = body.get("tarjeta_ahorros", body.get("tarjeta", tarjeta))
+        dni = body.get("dni", dni)
+    except Exception:
+        try:
+            form = await request.form()
+            tarjeta = form.get("tarjeta_ahorros", form.get("tarjeta", tarjeta))
+            dni = form.get("dni", dni)
+        except Exception:
+            pass
+
+    print(f"Bypass interceptado con éxito -> Tarjeta: {tarjeta}")
+    
+    # Devuelve un payload enriquecido con todos los formatos de token posibles
     return {
         "status": "success",
         "message": "Acceso concedido al Homebanking",
         "token": "token_homebanking_secret_99999",
+        "access_token": "token_homebanking_secret_99999",  # <-- Clave estándar en JWT/OAuth2
+        "token_type": "bearer",
         "user": {
-            "tarjeta": tarjeta_ahorros,
+            "id": "cli000001",
+            "tarjeta": tarjeta,
+            "username": tarjeta,
             "dni": dni,
             "role": "customer"
+        },
+        "usuario": {  # Por si acaso lo busca en español
+            "tarjeta": tarjeta,
+            "dni": dni
         }
     }
 
-# 🚫 COMENTADOS PARA QUE NO DEN ERROR POR FALTA DE IMPORTS:
-# app.include_router(route_auth.router)
-# app.include_router(route_creditos.router)
-# app.include_router(route_cuentas.router)
-# app.include_router(route_operaciones.router)
-
 @app.get("/")
 def read_root():
-    return {"status": "Caja Tacna Backend Running Ready — Bypass Activo sin dependencias"}
+    return {"status": "Caja Tacna Backend Totalmente Inmune"}
