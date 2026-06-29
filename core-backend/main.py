@@ -1,14 +1,9 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel
 
-app = FastAPI(
-    title="Core Financiero — Caja Tacna",
-    description="Motor de scoring, cartera crediticia y KPIs institucionales",
-    version="1.0.0"
-)
+app = FastAPI(title="API Core Backend - Caja Tacna")
 
-# 🛡️ CORS configurado al 100% libre para evitar bloqueos con cualquier URL de Vercel
+# 🛡️ CORS TOTALMENTE ABIERTO: Permite que cualquier URL de Vercel se conecte
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -17,19 +12,35 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# ⚡ LOGIN BYPASS: Intercepta la petición y responde OK al instante sin tocar la base de datos rota
+# ⚡ BYPASS PARA INICIO DE SESIÓN DEL PERSONAL
 @app.post("/auth/login")
-async def login_bypass(payload: dict):
+async def core_login_bypass(request: Request):
+    dni = "1111111"
+    try:
+        body = await request.json()
+        dni = body.get("dni", body.get("username", dni))
+    except Exception:
+        try:
+            form = await request.form()
+            dni = form.get("dni", form.get("username", dni))
+        except Exception:
+            pass
+
+    print(f"Bypass Core Activado -> DNI Personal: {dni}")
+
     return {
         "status": "success",
-        "message": "Login correcto (Bypass)",
-        "token": "token_falso_de_emergencia_12345",
+        "message": "Acceso concedido al Core",
+        "access_token": "token_core_secret_88888",
+        "token_type": "bearer",
         "user": {
-            "name": "Usuario Caja Tacna",
+            "id": "pers001",
+            "dni": dni,
+            "username": dni,
             "role": "admin"
         }
     }
 
 @app.get("/")
-def root():
-    return {"sistema": "Core Financiero Caja Tacna — Bypass Activo", "version": "1.0.0", "status": "ok"}
+def read_root():
+    return {"status": "Core Backend Running — Bypass Activo"}
