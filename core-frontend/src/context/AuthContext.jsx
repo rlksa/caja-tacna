@@ -6,11 +6,6 @@ const USER_KEY = 'core_user'
 
 const AuthContext = createContext(null)
 
-/**
- * Provee el estado de sesión a toda la app.
- * El token se persiste en localStorage y el interceptor de svc_api
- * lo inyecta automáticamente en cada request.
- */
 export function AuthProvider({ children }) {
   const [token, setToken] = useState(() => localStorage.getItem(TOKEN_KEY))
   const [user, setUser] = useState(() => {
@@ -19,7 +14,7 @@ export function AuthProvider({ children }) {
   })
 
   const login = useCallback(async (numerodni, password) => {
-    const data = await loginService({ numerodni, password })
+    const data = await loginService({ dni: numerodni, password })
     const usuario = {
       codpersonal: data.codpersonal,
       nombre: data.nombre,
@@ -53,7 +48,6 @@ export function AuthProvider({ children }) {
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
 }
 
-/** Hook de acceso al contexto de autenticación. */
 export function useAuthContext() {
   const ctx = useContext(AuthContext)
   if (!ctx) {
